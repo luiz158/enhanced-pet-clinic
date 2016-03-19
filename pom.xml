@@ -5,6 +5,7 @@
 
 	<artifactId>enhanced-pet-clinic</artifactId>
 	<name>Enhanced Pet Clinic</name>
+	<version>{PIPELINE_VERSION}</version>
 	<description>Spring Boot Enhanced Pet Clinic</description>
 	<url>http://projects.spring.io/spring-boot/</url>
 
