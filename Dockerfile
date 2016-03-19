@@ -17,7 +17,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 COPY ./enhanced-pet-clinic-exec.jar	/tmp/
 
 # extract the war to run server/UI in standalone
-RUN rm -rf /tmp/enhanced-pet-clinic && mkdir -p /tmp/enhanced-pet-clinic && cd /tmp/ATM-SERVER
+RUN rm -rf /tmp/enhanced-pet-clinic && mkdir -p /tmp/enhanced-pet-clinic && cd /tmp/enhanced-pet-clinic
 
 # COPY THE UI DISTRIBUTION IN NGINX HTTP FOLDER
 #RUN cp -r /tmp/ATM-SERVER/node-client/* /usr/share/nginx/html/
