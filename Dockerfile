@@ -2,11 +2,12 @@ FROM codenvy/debian_jdk8
 
 USER root 
 
-RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 
+#RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC641079A6ABABF5BD827BD9BF62 
 #RUN echo "deb http://nginx.org/packages/mainline/debian/ jessie nginx" >> /etc/apt/sources.list
 
 # server ports (8180 for server and 80 for nginx)
 #EXPOSE 8180 80
+EXPOSE 8888
 
 #RUN apt-get update && apt-get install -y ca-certificates nginx && rm -rf /var/lib/apt/lists/*
 
@@ -17,7 +18,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 COPY ./enhanced-pet-clinic-exec.jar	/tmp/
 
 # extract the war to run server/UI in standalone
-RUN rm -rf /tmp/enhanced-pet-clinic && mkdir -p /tmp/enhanced-pet-clinic && cd /tmp/enhanced-pet-clinic
+#RUN rm -rf /tmp/enhanced-pet-clinic && mkdir -p /tmp/enhanced-pet-clinic && cd /tmp/enhanced-pet-clinic
 
 # COPY THE UI DISTRIBUTION IN NGINX HTTP FOLDER
 #RUN cp -r /tmp/ATM-SERVER/node-client/* /usr/share/nginx/html/
