@@ -4,6 +4,8 @@ USER root
 
 EXPOSE 8888
 
+RUN sudo mkdir -p /tmp
+
 COPY ./enhanced-pet-clinic-exec.jar	/tmp/
 
 # GET entry point script running server and client binaries
