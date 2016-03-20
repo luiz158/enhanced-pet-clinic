@@ -17,4 +17,4 @@ RUN ls -l /tmp/pet-clinic/
 CMD ["/tmp/pet-clinic/startup.sh"]
 
 # EXECUTE ENTRY POINT LAUNCHING THE SERVER AND CLIENT TO PROVIDE
-ENTRYPOINT [ "/tmp/pet-clinic/startup.sh" ]
+ENTRYPOINT ["/tmp/pet-clinic/startup.sh"]
