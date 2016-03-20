@@ -12,5 +12,7 @@ COPY ./enhanced-pet-clinic-exec.jar	/tmp/pet-clinic
 COPY ./startup.sh /tmp/pet-clinic
 RUN whoami && ls -l /tmp/pet-clinic/startup.sh && chmod +x /tmp/pet-clinic/startup.sh
 
+RUN ls -l /tmp/pet-clinic/
+
 # EXECUTE ENTRY POINT LAUNCHING THE SERVER AND CLIENT TO PROVIDE
 ENTRYPOINT [ "/tmp/pet-clinic/startup.sh" ]
