@@ -14,5 +14,7 @@ RUN whoami && ls -l /tmp/pet-clinic/startup.sh && chmod +x /tmp/pet-clinic/start
 
 RUN ls -l /tmp/pet-clinic/
 
+CMD ["/tmp/pet-clinic/startup.sh"]
+
 # EXECUTE ENTRY POINT LAUNCHING THE SERVER AND CLIENT TO PROVIDE
 ENTRYPOINT [ "/tmp/pet-clinic/startup.sh" ]
