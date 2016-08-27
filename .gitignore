@@ -8,3 +8,5 @@ application.port
 file*.txt
 target/
 xml*.xml
+.idea
+enhanced-pet-clinic.iml
