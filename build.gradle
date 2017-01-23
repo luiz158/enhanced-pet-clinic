@@ -1,0 +1,98 @@
+apply plugin: 'java'
+apply plugin: 'docker'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+mainClassName= 'sample.ui.SampleWebUiApplication'
+
+buildscript { //for external dependencies and plugin in build script
+    ext {
+        springBootVersion = '1.3.3.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+        maven {
+            //for spring framework
+            url "http://repo.spring.io/libs-release"
+        }
+    }
+    dependencies {
+        //spring boot plugins
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.6.RELEASE")
+
+        // docker plugin
+        classpath("se.transmode.gradle:gradle-docker:1.2") //
+
+        // build.gradle groovy library
+        classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
+
+        // build.gradle groovy library
+        classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
+    }
+}
+
+ext {
+    projectName = "petclinic"
+}
+jar {
+    baseName = projectName
+}
+
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://repo.maven.apache.org/maven2" }
+}
+
+dependencies {
+    compile('org.springframework.boot:spring-boot-starter-web:1.3.3.RELEASE')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa:1.3.3.RELEASE')
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-thymeleaf', version:'1.3.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version:'1.3.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-security', version:'1.3.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-actuator', version:'1.3.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-remote-shell', version:'1.3.3.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-devtools', version:'1.3.3.RELEASE'
+    compile(group: 'org.springframework.webflow', name: 'spring-webflow', version:'2.4.0.RELEASE') {
+        exclude(module: 'commons-logging')
+    }
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version:'2.1.2.RELEASE'
+    compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-conditionalcomments', version:'2.1.1.RELEASE'
+    compile group: 'org.hibernate', name: 'hibernate-validator', version:'5.2.4.Final'
+    compile(group: 'net.sf.ehcache', name: 'ehcache', version:'2.10.1') {
+        exclude(module: 'commons-logging')
+    }
+    compile group: 'org.hsqldb', name: 'hsqldb', version:'2.3.3'
+    compile group: 'mysql', name: 'mysql-connector-java', version:'5.1.38'
+    compile group: 'org.webjars', name: 'bootstrap', version:'3.3.6'
+    compile group: 'org.webjars', name: 'jquery', version:'2.2.2'
+    compile group: 'org.webjars', name: 'jquery-ui', version:'1.11.4'
+    compile group: 'org.webjars', name: 'jquery-ui-themes', version:'1.11.4'
+    compile group: 'org.webjars', name: 'datatables', version:'1.10.11'
+    compile group: 'com.github.dandelion', name: 'datatables-thymeleaf', version:'1.1.0'
+    compile group: 'com.github.dandelion', name: 'datatables-export-itext', version:'1.1.0'
+    compile group: 'com.github.dandelion', name: 'datatables-export-poi', version:'1.1.0'
+    compile group: 'com.github.dandelion', name: 'datatables-export-poi-ooxml', version:'1.1.0'
+    compile group: 'com.github.dandelion', name: 'dandelion-ehcache', version:'1.1.1'
+    compile group: 'org.springframework', name: 'spring-oxm', version:'4.2.5.RELEASE'
+    compile group: 'com.rometools', name: 'rome', version:'1.5.0'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.4'
+    testCompile(group: 'org.springframework.boot', name: 'spring-boot-starter-test', version:'1.3.3.RELEASE') {
+        exclude(module: 'commons-logging')
+    }
+    testCompile group: 'org.springframework', name: 'spring-test', version:'4.2.5.RELEASE'
+    compile(group: 'org.projectlombok', name: 'lombok', version:'1.16.8') {
+       /* This dependency was originally in the Maven provided scope, but the project was not of type war.
+       This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
+       Please review and delete this closure when resolved. */
+    }
+}

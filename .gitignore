@@ -8,3 +8,8 @@ application.port
 file*.txt
 target/
 xml*.xml
+.idea
+.gradle
+**/*.iml
+build
+gradle
