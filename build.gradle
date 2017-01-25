@@ -3,10 +3,87 @@ apply plugin: 'docker'
 apply plugin: 'idea'
 apply plugin: 'application'
 
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 mainClassName= 'sample.ui.SampleWebUiApplication'
+
+//----------------------------------------------------------------------------------------------------------------------------------------
+//DOCKER
+ext {
+    projectName = "petclinic"
+    group = "yoonsung"
+}
+jar {
+    baseName = projectName
+}
+
+docker { //@see https://github.com/Transmode/gradle-docker
+    baseImage = 'picoded/ubuntu-openjdk-8-jdk'
+    registry = 'idock.daumkakao.io/v2'
+    useApi = false
+}
+
+task loginToDocker << {
+        exec {
+            final String username = project.property('DOCKER_USERNAME')
+            final String password = project.property('DOCKER_PASSWORD')
+
+            assert username != null
+            assert password != null
+
+            executable docker.dockerBinary
+            args 'login', "--username=${username}", "--password=${password}"
+        }   
+}
+
+task deployDockerImage(type: Docker, dependsOn: [build, loginToDocker]) {
+    doFirst {
+        copy {
+            from jar
+            into stageDir
+        }
+    }
+    
+    tag = "yoonsung/${projectName}"
+    tagVersion = 1
+    push = true
+    applicationName = jar.baseName
+
+    volume '/tmp'
+    entryPoint([
+            "java",
+            "-Duser.timezone=Asia/Seoul",
+            "-jar",
+            "/petclinic.jar"]) //@see difference between CMD and ENTRYPOINT https://www.ctl.io/developers/blog/post/dockerfile-entrypoint-vs-cmd/
+    addFile jar.archiveName, 'petclinic.jar'
+}
+deployDockerImage {
+    group = "docker"
+    description = "Generate Application Docker Image"
+}
+//----------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 buildscript { //for external dependencies and plugin in build script
     ext {
@@ -30,22 +107,12 @@ buildscript { //for external dependencies and plugin in build script
 
         // docker plugin
         classpath("se.transmode.gradle:gradle-docker:1.2") //
-
-        // build.gradle groovy library
-        classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
-
-        // build.gradle groovy library
-        classpath('org.codehaus.groovy.modules.http-builder:http-builder:0.7.1')
     }
 }
 
-ext {
-    projectName = "petclinic"
-}
 jar {
     baseName = projectName
 }
-
 
 repositories {
     mavenLocal()
